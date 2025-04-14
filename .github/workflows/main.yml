@@ -1,43 +1,37 @@
-name: Build APK with Buildozer
+name: Build Android APK
 
 on:
   push:
     branches:
-      - main   # O cualquier rama que prefieras
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v2
+      - name: 🔄 Checkout code
+        uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.8'   # Puedes elegir la versión de Python que prefieras
+          python-version: 3.10
 
-      - name: Install dependencies
+      - name: 📦 Install dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential libssl-dev libffi-dev python3-dev zip unzip openjdk-17-jdk
+          sudo apt update
+          sudo apt install -y python3-pip python3-setuptools git zip unzip openjdk-17-jdk
           pip install --upgrade pip
           pip install buildozer cython
 
-      - name: Install Android SDK
-        run: |
-          wget https://dl.google.com/android/repository/commandlinetools-linux-7302050_latest.zip
-          unzip commandlinetools-linux-7302050_latest.zip -d $HOME/android-sdk
-          echo "export ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
-          echo "export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin" >> $GITHUB_ENV
-
-      - name: Build APK
+      - name: 🔨 Build APK
         run: |
           buildozer android debug
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v2
+      - name: 📁 Upload APK
+        uses: actions/upload-artifact@v3
         with:
-          name: flet_app.apk
+          name: flet_app_apk
           path: bin/*.apk
+
