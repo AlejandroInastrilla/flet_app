@@ -27,6 +27,7 @@ jobs:
 
       - name: 🔨 Build APK
         run: |
+          buildozer init || echo "Ya existe buildozer.spec"
           buildozer android debug
 
       - name: 📁 Upload APK
@@ -34,4 +35,3 @@ jobs:
         with:
           name: flet_app_apk
           path: bin/*.apk
-
