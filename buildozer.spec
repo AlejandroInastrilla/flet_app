@@ -1,5 +1,5 @@
 [app]
-title = "Flet App"
+title = Flet App
 package.name = fletapp
 package.domain = org.flet
 source.include_exts = py,png,jpg,kv,atlas
